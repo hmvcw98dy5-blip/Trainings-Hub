@@ -142,7 +142,7 @@ body.mode-compact .session .session-footer{font-size:11px}
 .hub-menu-title:first-child{border-top:0;padding-top:2px}
 .hub-menu-hint{font-size:12px;color:#627879;line-height:1.45;margin:8px 5px 3px}
 @media(max-width:600px){.week-navigation{flex:1 1 100%}.toolbar-actions{flex:1 1 100%}.toolbar-actions button{flex:1 1 auto}.toolbar-menus{flex:1 1 100%}.hub-menu{flex:1 1 100%}.hub-menu-content{width:100%;box-sizing:border-box;position:relative;top:4px;box-shadow:0 6px 18px #173d3a1a}.view-toolbar{justify-content:space-between}}
-</style></head><body><header><div><h1>🚴 Training Hub</h1><small>Deine persönliche Trainingswoche · Version 0.10.24 · Übersicht</small></div><span id="storage">Lokal gespeichert</span></header><main><div class="toolbar main-toolbar">
+</style></head><body><header><div><h1>🚴 Training Hub</h1><small>Deine persönliche Trainingswoche · Version 0.10.25 · Navigation repariert</small></div><span id="storage">Lokal gespeichert</span></header><main><div class="toolbar main-toolbar">
 <div class="week-navigation"><button id="prev" aria-label="Vorherige Woche">←</button><strong id="range"></strong><button id="next" aria-label="Nächste Woche">→</button><button id="current">Diese Woche</button></div>
 <div class="toolbar-actions"><button class="primary" id="add">+ Training</button><button id="addActivity">+ Aktivität</button><button id="sleepOpenBtn">🌙 Schlaf</button><button id="seasonOpenBtn">🗓️ Saison</button><button id="journalOpenBtn" class="primary">📊 Trainingstagebuch</button><button id="fitOpenBtn" class="primary">🚴 FIT auswerten</button></div>
 <div class="toolbar-menus">
@@ -395,7 +395,6 @@ $('playerSound').onclick=()=>{playerSound=!playerSound;paintPlayer();if(playerSo
 $('player').addEventListener('cancel',()=>{stopPlayerInterval();playerState=null;});
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&playerState?.running)pausePlayer('Automatisch pausiert: App war im Hintergrund. Tippe auf Weiter.');});
 
-$('demo').onclick=async()=>{try{const response=await fetch('./TRAININGSPLAN-YOGA-TEST.json');if(!response.ok)throw Error('Testdatei fehlt');const data=await response.json();const arr=data.sessions;const dates=new Set(arr.map(s=>s.date));if(!confirm('Beispielwoche laden? Bereits vorhandene Einheiten an diesen Tagen werden ERSETZT.'))return;sessions=sessions.filter(s=>!dates.has(s.date));sessions.push(...arr.map(s=>({...s,steps:normalizeSteps(s.steps),routine:normalizeRoutine(s.routine)})));save();weekStart=monday(fromStr(arr[0].date));render();$('notice').textContent='Beispielwoche geladen. Yoga öffnen und „Training starten“ wählen.';}catch(err){alert('Beispielwoche konnte nicht geladen werden: '+err.message)}};
 
 // Bike intensity chart: SVG built from existing FTP-relative intervals; no network or dependencies.
 function bikeProfile(steps,ftp){
