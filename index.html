@@ -142,9 +142,9 @@ body.mode-compact .session .session-footer{font-size:11px}
 .hub-menu-title:first-child{border-top:0;padding-top:2px}
 .hub-menu-hint{font-size:12px;color:#627879;line-height:1.45;margin:8px 5px 3px}
 @media(max-width:600px){.week-navigation{flex:1 1 100%}.toolbar-actions{flex:1 1 100%}.toolbar-actions button{flex:1 1 auto}.toolbar-menus{flex:1 1 100%}.hub-menu{flex:1 1 100%}.hub-menu-content{width:100%;box-sizing:border-box;position:relative;top:4px;box-shadow:0 6px 18px #173d3a1a}.view-toolbar{justify-content:space-between}}
-</style></head><body><header><div><h1>🚴 Training Hub</h1><small>Deine persönliche Trainingswoche · Version 0.10.25 · Navigation repariert</small></div><span id="storage">Lokal gespeichert</span></header><main><div class="toolbar main-toolbar">
+</style></head><body><header><div><h1>🚴 Training Hub</h1><small>Deine persönliche Trainingswoche · Version 0.10.26 · Navigation repariert</small></div><span id="storage">Lokal gespeichert</span></header><main><div class="toolbar main-toolbar">
 <div class="week-navigation"><button id="prev" aria-label="Vorherige Woche">←</button><strong id="range"></strong><button id="next" aria-label="Nächste Woche">→</button><button id="current">Diese Woche</button></div>
-<div class="toolbar-actions"><button class="primary" id="add">+ Training</button><button id="addActivity">+ Aktivität</button><button id="sleepOpenBtn">🌙 Schlaf</button><button id="seasonOpenBtn">🗓️ Saison</button><button id="journalOpenBtn" class="primary">📊 Trainingstagebuch</button><button id="fitOpenBtn" class="primary">🚴 FIT auswerten</button></div>
+<div class="toolbar-actions"><button class="primary" id="add">+ Training</button><button id="addActivity">+ Aktivität</button><button id="sleepOpenBtn">🌙 Schlaf</button><button id="seasonOpenBtn">🗓️ Saison</button><button id="journalOpenBtn" class="primary">📊 Trainingstagebuch</button><button id="fitOpenBtn" class="primary">🚴 FIT / TCX auswerten</button></div>
 <div class="toolbar-menus">
 <details class="hub-menu" id="dataMenu"><summary>📁 Daten &amp; Import/Export <span aria-hidden="true">▾</span></summary><div class="hub-menu-content"><div class="hub-menu-title">Trainingsplanung &amp; Sicherung</div><button id="import">📥 Trainingsplan JSON importieren</button><button id="zwoImportBtn">📥 ZWO-Training importieren</button><button id="export">📤 Gesamte Daten als JSON sichern</button><div class="hub-menu-title">Schlafdaten</div><button id="sleepImportBtn">📥 Schlaf-CSV/JSON importieren</button><button id="sleepExportBtn">📤 Schlafdaten exportieren</button><button id="sleepTemplateBtn">⬇️ Schlaf-CSV-Vorlage</button><p class="hub-menu-hint">ChatGPT-Exporte für Trainingseinheiten findest du weiterhin in der FIT-Auswertung und im Trainingstagebuch.</p></div></details>
 <details class="hub-menu" id="toolsMenu"><summary>⚙️ Werkzeuge &amp; Einstellungen <span aria-hidden="true">▾</span></summary><div class="hub-menu-content"><button id="libraryOpenBtn">📚 Übungsbibliothek</button><button id="nutritionSettingsBtn">🥤 Ernährung</button><button id="hrSettingsBtn">❤️ HF-Profil</button></div></details>
@@ -172,9 +172,9 @@ body.mode-compact .session .session-footer{font-size:11px}
 <label>Notizen (Technik, Tagesform, Beschwerden, Fortschritte …)<textarea id="entryNotes" rows="4" maxlength="3000" placeholder="Was lief gut? Was würdest du beim nächsten Mal ändern?"></textarea></label>
 <p class="journal-note">Beim Speichern wird die Einheit als erledigt markiert. Kraftsätze werden separat im Kraft-Player erfasst und hier automatisch ausgewertet. Einträge können später korrigiert werden.</p>
 <div class="actions"><button type="submit" class="primary">Ergebnis speichern</button><button id="entryDelete" type="button">Eintrag löschen</button><button id="entryCancel" type="button">Abbrechen</button></div></form></dialog>
-<dialog id="fitDialog" aria-labelledby="fitHeading"><div class="journal-head"><div><div class="hint">TRAINING HUB · 0.10.4</div><h2 id="fitHeading" style="margin:4px 0">IC Trainer – FIT-Auswertung</h2><div class="hint">Lokal auf diesem Gerät · kein Upload · Originaldatei wird nicht gespeichert</div></div><button id="fitClose" aria-label="Schließen">✕</button></div>
-<p class="journal-note">Wähle eine von IC Trainer exportierte <b>.fit</b>-Datei. Wir lesen Leistungs-, Puls- und Trittfrequenzdaten aus. Nicht jedes Gerät liefert alle Werte. Importiere zunächst eine Testdatei.</p>
-<input type="file" id="fitFile" accept=".fit,application/octet-stream"><div id="fitStatus" class="fit-status journal-note" role="status">Noch keine FIT-Datei ausgewählt.</div>
+<dialog id="fitDialog" aria-labelledby="fitHeading"><div class="journal-head"><div><div class="hint">TRAINING HUB · 0.10.4</div><h2 id="fitHeading" style="margin:4px 0">Trainingsdatei – FIT-/TCX-Auswertung</h2><div class="hint">Lokal auf diesem Gerät · kein Upload · Originaldatei wird nicht gespeichert</div></div><button id="fitClose" aria-label="Schließen">✕</button></div>
+<p class="journal-note">Wähle eine von IC Trainer exportierte <b>.fit</b>-Datei. Wir lesen verfügbare Leistungs-, Puls- und Trittfrequenzdaten aus. TCX-Dateien enthalten häufig keine Wattwerte; fehlende Werte bleiben leer. Importiere zunächst eine Testdatei.</p>
+<input type="file" id="fitFile" accept=".fit,.tcx,application/octet-stream,application/xml,text/xml"><div id="fitStatus" class="fit-status journal-note" role="status">Noch keine FIT- oder TCX-Datei ausgewählt.</div>
 <div id="fitResults" hidden><div class="fit-grid" id="fitMetrics"></div><div id="fitCharts"></div><section id="fitRecovery" class="journal-section" aria-live="polite"></section>
 <div class="journal-section"><h3 style="margin:0 0 8px">Mit geplantem Training vergleichen</h3><div class="fit-pair"><label>Training zuordnen<select id="fitSession"></select></label><label>FTP für die Auswertung (W)<input id="fitFtp" type="number" min="50" max="700" step="1"></label></div><div id="fitComparison" class="journal-note" style="margin-top:10px"></div>
 <div class="journal-section" style="margin-top:12px"><h3 style="margin:0 0 5px">💬 Wie anstrengend war die gesamte Einheit?</h3>
@@ -711,6 +711,56 @@ function parseFit(buffer){
  const unix=(start+631065600)*1000;
  return {date:new Date(unix).toISOString().slice(0,10),start:new Date(unix).toISOString(),duration:Math.round(duration),elapsed:Math.round(elapsed),distance:distance==null?null:Math.round(distance/10)/100,powerMean,powerMax,hrMean,hrMax,cadenceMean:mean('cadence'),points,records:valid.length,hasPower:valid.some(x=>x.power!=null)};
 }
+// TCX (Garmin Training Center XML): offline reader; preserves the FIT analysis schema.
+function parseTcx(xml){
+ const doc=new DOMParser().parseFromString(xml,'application/xml');
+ if(doc.querySelector('parsererror'))throw Error('TCX-XML ist ungültig oder beschädigt.');
+ const root=doc.documentElement;
+ if(root.localName!=='TrainingCenterDatabase')throw Error('Keine Garmin-TCX-Datei (TrainingCenterDatabase fehlt).');
+ const descendants=(el,name)=>Array.from(el.getElementsByTagName('*')).filter(x=>x.localName===name);
+ const child=(el,name)=>Array.from(el?.children||[]).find(x=>x.localName===name)||null;
+ const value=(el,name)=>{const x=child(el,name);return x?.textContent?.trim()||null};
+ const num=v=>v!==null&&v!==''&&Number.isFinite(Number(v))?Number(v):null;
+ const nested=(el,outer,inner)=>num(value(child(el,outer),inner));
+ const acts=descendants(root,'Activity');
+ if(!acts.length)throw Error('Keine Aktivität in der TCX-Datei gefunden.');
+ const laps=descendants(acts[0],'Lap');
+ const tracks=descendants(acts[0],'Trackpoint');
+ if(!tracks.length)throw Error('Keine Trackpoints in dieser TCX-Aktivität gefunden.');
+ if(tracks.length>300000)throw Error('TCX-Datei enthält zu viele Messpunkte.');
+ const records=[];
+ for(const point of tracks){
+  const stamp=Date.parse(value(point,'Time')||'');if(!Number.isFinite(stamp))continue;
+  const ext=descendants(point,'TPX')[0]||null;
+  const power=num(value(ext,'Watts'))??num(value(ext,'Power'));
+  const cadence=num(value(point,'Cadence'))??num(value(ext,'RunCadence'));
+  records.push({t:stamp/1000,power,hr:nested(point,'HeartRateBpm','Value'),cadence,
+   distance:num(value(point,'DistanceMeters')),alt:num(value(point,'AltitudeMeters'))});
+ }
+ records.sort((a,b)=>a.t-b.t);
+ if(!records.length)throw Error('Keine gültigen Zeitstempel in der TCX-Datei.');
+ const start=records[0].t,end=records.at(-1).t;
+ const lapNum=name=>laps.map(l=>num(value(l,name))).filter(Number.isFinite);
+ const sum=name=>{const a=lapNum(name);return a.length?a.reduce((x,y)=>x+y,0):null};
+ const maxLap=name=>{const a=lapNum(name);return a.length?Math.max(...a):null};
+ const avgLap=name=>{const a=lapNum(name);return a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null};
+ const mean=key=>{let n=0,total=0;for(const r of records)if(Number.isFinite(r[key])){total+=r[key];n++}return n?Math.round(total/n):null};
+ const peak=key=>{let m=null;for(const r of records)if(Number.isFinite(r[key]))m=m===null?r[key]:Math.max(m,r[key]);return m===null?null:Math.round(m)};
+ const duration=sum('TotalTimeSeconds')??Math.max(0,end-start);
+ const distance=sum('DistanceMeters')??records.at(-1).distance;
+ const count=Math.min(360,Math.max(1,Math.ceil((end-start)/5)));
+ const bins=Array.from({length:count},()=>({p:0,h:0,c:0,np:0,nh:0,nc:0}));
+ for(const r of records){const i=Math.min(count-1,Math.max(0,Math.floor((r.t-start)/Math.max(1,end-start)*count)));const b=bins[i];
+  if(Number.isFinite(r.power)){b.p+=r.power;b.np++}if(Number.isFinite(r.hr)){b.h+=r.hr;b.nh++}if(Number.isFinite(r.cadence)){b.c+=r.cadence;b.nc++}}
+ const points=bins.map((b,i)=>({t:Math.round((i+.5)*(end-start)/count),p:b.np?Math.round(b.p/b.np):null,h:b.nh?Math.round(b.h/b.nh):null,c:b.nc?Math.round(b.c/b.nc):null}));
+ const startDate=new Date(start*1000);
+ return {format:'TCX',date:[startDate.getFullYear(),String(startDate.getMonth()+1).padStart(2,'0'),String(startDate.getDate()).padStart(2,'0')].join('-'),
+  start:startDate.toISOString(),duration:Math.round(duration),elapsed:Math.round(end-start),distance:distance==null?null:Math.round(distance/10)/100,
+  powerMean:avgLap('AvgWatts')??mean('power'),powerMax:maxLap('MaxWatts')??peak('power'),
+  hrMean:Math.round(laps.reduce((a,l)=>a+(nested(l,'AverageHeartRateBpm','Value')||0),0)/Math.max(1,laps.filter(l=>nested(l,'AverageHeartRateBpm','Value')!=null).length))||mean('hr'),
+  hrMax:Math.max(0,...laps.map(l=>nested(l,'MaximumHeartRateBpm','Value')||0))||peak('hr'),
+  cadenceMean:avgLap('Cadence')??mean('cadence'),points,records:records.length,hasPower:records.some(r=>r.power!=null)};
+}
 function fitMetric(label,value){return `<div class="fit-metric"><strong>${value??'–'}</strong><small>${escapeHtml(label)}</small></div>`}
 function fitPlot(points,key,title,color){const valid=points.filter(p=>Number.isFinite(p[key]));if(!valid.length)return `<p class="journal-note">${escapeHtml(title)}: keine Daten in der FIT-Datei.</p>`;
  const W=800,H=230,L=46,R=15,T=14,B=31,max=Math.max(1,...valid.map(p=>p[key]))*1.12,min=0,maxT=Math.max(1,...points.map(p=>p.t));
@@ -767,7 +817,7 @@ function recoveryAdvice(f,session){
  else{carbs='Keine besondere Kohlenhydratmenge unmittelbar danach erforderlich; normale ausgewogene Mahlzeit genügt.'}
  const fluids=long||strenuous?'Nach Durst trinken. Bei starkem Schwitzen Flüssigkeit und Salz über Getränke und Mahlzeiten ersetzen; bei langen, heißen Einheiten kann Natrium sinnvoll sein.':'Nach Durst trinken; kein starres Trinkziel erzwingen.';
  const basis=`${Math.round(mins)} Min. · Ø ${f.powerMean??'–'} W${rel!==null?' ('+Math.round(rel*100)+' % FTP)':''}${rpe?' · RPE '+rpe:''}`;
- return `<h3 style="margin:0 0 8px">🍽️ Regeneration nach dem Training</h3><div class="hint" style="margin-bottom:10px">${escapeHtml(title)} · ${escapeHtml(basis)}. Orientierung anhand der FIT-Daten${rpe?' und deiner RPE-Eingabe':''}, keine medizinische Bewertung.</div><p><b>Protein:</b> ${escapeHtml(protein)}</p><p><b>Kohlenhydrate:</b> ${escapeHtml(carbs)}</p><p><b>Flüssigkeit & Salz:</b> ${escapeHtml(fluids)}</p><p class="hint">Magnesiumpräparate werden nicht pauschal zur Krampfvorbeugung empfohlen; bei häufigen Krämpfen Ursachen und Ernährung prüfen lassen. Die Empfehlung ersetzt keine individuelle Ernährungsberatung.</p>`;
+ return `<h3 style="margin:0 0 8px">🍽️ Regeneration nach dem Training</h3><div class="hint" style="margin-bottom:10px">${escapeHtml(title)} · ${escapeHtml(basis)}. Orientierung anhand der verfügbaren Trainingsdaten${rpe?' und deiner RPE-Eingabe':''}, keine medizinische Bewertung.</div><p><b>Protein:</b> ${escapeHtml(protein)}</p><p><b>Kohlenhydrate:</b> ${escapeHtml(carbs)}</p><p><b>Flüssigkeit & Salz:</b> ${escapeHtml(fluids)}</p><p class="hint">Magnesiumpräparate werden nicht pauschal zur Krampfvorbeugung empfohlen; bei häufigen Krämpfen Ursachen und Ernährung prüfen lassen. Die Empfehlung ersetzt keine individuelle Ernährungsberatung.</p>`;
 }
 function paintFitRecovery(){if(!pendingFit)return;const session=sessions.find(s=>s.id===$('fitSession').value);$('fitRecovery').innerHTML=recoveryAdvice({...pendingFit,ftpAtImport:Number($('fitFtp').value)||getFtp()},session)}
 function paintFit(){const f=pendingFit;if(!f)return;$('fitResults').hidden=false;$('fitMetrics').innerHTML=fitMetric('Datum',f.date)+fitMetric('Fahrzeit',`${Math.round(f.duration/60)} Min.`)+fitMetric('Ø Leistung',f.powerMean==null?'–':f.powerMean+' W')+fitMetric('Max. Leistung',f.powerMax==null?'–':f.powerMax+' W')+fitMetric('Ø Puls',f.hrMean==null?'–':f.hrMean+' bpm')+fitMetric('Max. Puls',f.hrMax==null?'–':f.hrMax+' bpm')+fitMetric('Ø Kadenz',f.cadenceMean==null?'–':f.cadenceMean+' rpm')+fitMetric('Strecke',f.distance==null?'–':f.distance+' km');$('fitCharts').innerHTML=fitPlot(f.points,'p','Leistungsverlauf (W)','#157a70')+fitPlot(f.points,'h','Herzfrequenzverlauf (bpm)','#cb6657');fitSessionOptions();syncFitRpe();paintFitComparison();paintFitRecovery()}
@@ -775,7 +825,7 @@ function selectedFitRpe(){const raw=$('fitRpe').value;const n=Number(raw);return
 function syncFitRpe(){const id=$('fitSession').value;const existing=id?journalEntries[id]?.rpe:null;$('fitRpe').value=existing>=1&&existing<=10?String(existing):'';updateFitRpeHint()}
 function updateFitRpeHint(){const rpe=selectedFitRpe(),mins=pendingFit?Math.round(pendingFit.duration/60):0;$('fitRpeHint').textContent=rpe===null?'Optional · Bewerte die gesamte Einheit, nicht nur das härteste Intervall.':'Deine Einschätzung: '+rpe+'/10 · Subjektive Trainingslast: '+(rpe*mins)+' AU ('+mins+' Min. × '+rpe+'). Dieser Wert wird beim Speichern und ChatGPT-Export übernommen.'}
 $('fitOpenBtn').onclick=()=>{$('fitFtp').value=getFtp();$('fitDialog').showModal()};$('fitClose').onclick=()=>$('fitDialog').close();$('fitSession').onchange=()=>{syncFitRpe();paintFitComparison();paintFitRecovery()};$('fitRpe').onchange=()=>{updateFitRpeHint();paintFitRecovery()};$('fitFtp').onchange=()=>{paintFitComparison();paintFitRecovery()};$('fitRecalc').onclick=()=>{paintFitComparison();paintFitRecovery()};
-$('fitFile').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;pendingFit=null;$('fitResults').hidden=true;$('fitStatus').textContent='FIT-Datei wird lokal eingelesen …';try{if(file.size>40*1024*1024)throw Error('Datei größer als 40 MB – bitte kleinere Aktivitätsdatei verwenden.');const buffer=await file.arrayBuffer();pendingFit=parseFit(buffer);pendingFit.fileName=file.name.slice(0,150);$('fitStatus').textContent=`✓ ${file.name} gelesen · ${pendingFit.records} Datensätze · FIT-Prüfsumme korrekt. Keine Datei hochgeladen.`;paintFit()}catch(err){$('fitStatus').textContent='FIT-Import nicht möglich: '+err.message+' Bitte FIT-Datei zur Analyse bereitstellen, damit wir den Parser an das Format anpassen können.'}finally{e.target.value=''}};
+$('fitFile').onchange=async e=>{const file=e.target.files?.[0];if(!file)return;pendingFit=null;$('fitResults').hidden=true;$('fitStatus').textContent='Trainingsdatei wird lokal eingelesen …';try{if(file.size>40*1024*1024)throw Error('Datei größer als 40 MB – bitte kleinere Aktivitätsdatei verwenden.');const isTcx=/\.tcx$/i.test(file.name);const isFit=/\.fit$/i.test(file.name);if(!isTcx&&!isFit)throw Error('Bitte eine .fit- oder .tcx-Datei wählen.');pendingFit=isTcx?parseTcx(await file.text()):parseFit(await file.arrayBuffer());pendingFit.format=isTcx?'TCX':'FIT';pendingFit.fileName=file.name.slice(0,150);$('fitStatus').textContent=`✓ ${file.name} gelesen · ${pendingFit.records} Datensätze · ${isTcx?'TCX-XML eingelesen':'FIT-Prüfsumme korrekt'} · ${pendingFit.hasPower?'Leistungswerte vorhanden':'keine Wattwerte vorhanden'}. Keine Datei hochgeladen.`;paintFit()}catch(err){$('fitStatus').textContent='FIT-/TCX-Import nicht möglich: '+err.message}finally{e.target.value=''}};
 $('fitSave').onclick=()=>{if(!pendingFit)return;const id=$('fitSession').value,s=sessions.find(x=>x.id===id);if(!s||s.type!=='bike')return;const prev=journalEntries[id]||{};if(fitResults[id]&&!confirm('Für diese Einheit existiert bereits eine FIT-Auswertung. Ersetzen?'))return;
  fitResults[id]={...pendingFit,ftpAtImport:Math.max(50,Math.min(700,Number($('fitFtp').value)||getFtp()))};saveFitResults();journalEntries[id]=cleanJournalEntry({sessionId:id,minutes:Math.round(pendingFit.duration/60),rpe:selectedFitRpe()??prev.rpe??'',feeling:prev.feeling||'',notes:prev.notes||'',savedAt:new Date().toISOString()});saveJournal();s.status='done';save();render();$('fitStatus').textContent='✓ Im Trainingstagebuch gespeichert. Die Auswertung bleibt geöffnet und kann weiterhin kopiert werden.';$('notice').textContent='FIT-Kennzahlen im Trainingstagebuch gespeichert.';};
 
@@ -784,10 +834,10 @@ $('fitSave').onclick=()=>{if(!pendingFit)return;const id=$('fitSession').value,s
 // A compact summary alone is insufficient for interval analysis: keep the available time series.
 function exportNumber(v){return typeof v==='number'&&Number.isFinite(v)?v:null}
 function exportFit(f){if(!f||typeof f!=='object')return null;return {
- fileName:f.fileName||null,date:f.date||null,start:f.start||null,durationSeconds:exportNumber(f.duration),elapsedSeconds:exportNumber(f.elapsed),distanceKm:exportNumber(f.distance),
+ fileName:f.fileName||null,sourceFormat:f.format||'FIT',date:f.date||null,start:f.start||null,durationSeconds:exportNumber(f.duration),elapsedSeconds:exportNumber(f.elapsed),distanceKm:exportNumber(f.distance),
  averagePowerWatts:exportNumber(f.powerMean),maximumPowerWatts:exportNumber(f.powerMax),averageHeartRateBpm:exportNumber(f.hrMean),maximumHeartRateBpm:exportNumber(f.hrMax),averageCadenceRpm:exportNumber(f.cadenceMean),ftpAtImportWatts:exportNumber(f.ftpAtImport),originalRecordCount:exportNumber(f.records),
  timeSeries:Array.isArray(f.points)?f.points.slice(0,2000).map(p=>({seconds:exportNumber(p.t),watts:exportNumber(p.p),heartRateBpm:exportNumber(p.h),cadenceRpm:exportNumber(p.c)})):[],
- timeSeriesNote:'Zeitlich zusammengefasste FIT-Messwerte; keine sekundengenaue Originalaufzeichnung. Fehlende Werte sind null. Intervallgrenzen nur näherungsweise erkennbar.'
+ timeSeriesNote:'Zeitlich zusammengefasste FIT-/TCX-Messwerte; keine sekundengenaue Originalaufzeichnung. Fehlende Werte sind null. Intervallgrenzen nur näherungsweise erkennbar.'
 }}
 function exportNutrition(id){const p=nutritionPlans[id];if(!p||typeof p!=='object')return null;
  // Only the session plan and actual feedback; products are included separately in the export.
