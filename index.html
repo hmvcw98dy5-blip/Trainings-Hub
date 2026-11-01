@@ -134,7 +134,7 @@ body.mode-compact .session .session-footer{font-size:11px}
 .move-history ul{margin:8px 0;padding-left:18px}
 .move-history li{margin:6px 0}
 
-/* 0.10.34 – kompakter Intervall-Editor */
+/* 0.10.35 – kompakter Intervall-Editor */
 .interval-edit-area{margin:12px 0;border:1px solid #d6e5e6;border-radius:14px;padding:12px;background:#f7fbfb}
 .interval-edit-toggle{background:#e1f2ef!important;color:#0a6158!important;font-weight:700}
 .interval-editor-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0;font-size:.85rem;color:#35515b}
@@ -145,6 +145,21 @@ body.mode-compact .session .session-footer{font-size:11px}
 .interval-row-actions{display:flex;gap:3px;align-self:end}
 .interval-row-actions button{padding:7px 8px;min-width:30px;font-size:.83rem}
 @media(max-width:620px){.interval-editor-row{grid-template-columns:1fr 1fr 1fr}.interval-editor-row label:first-child{grid-column:1/-1}.interval-row-actions{grid-column:1/-1;justify-content:flex-end}}
+
+/* 0.10.35: Saisonphasen ohne Abschneiden, auf iPad moderat mehr Platz. */
+.dash-event{align-items:center}
+.dash-phase{align-self:center;min-width:0}
+.dash-phase h3{overflow-wrap:anywhere}
+.dash-cycle{justify-content:flex-start;align-self:stretch;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#a3bdc4 transparent;padding-top:2px;padding-bottom:2px}
+.dash-cycle .season-phase-line{display:grid;grid-template-columns:12px minmax(0,1fr) auto;align-items:start;column-gap:6px;padding:4px 0;line-height:1.25}
+.dash-cycle .season-phase-line small{white-space:nowrap;font-size:10px}
+@media (min-width:1000px) and (min-height:680px) and (max-height:1250px){
+ .dash-event{height:clamp(170px,19dvh,205px);grid-template-columns:minmax(0,1.15fr) 120px minmax(0,1fr) minmax(0,1.15fr);gap:16px}
+ .dash-cycle{max-height:170px}
+ .day,body.mode-compact .day,body.mode-expanded .day{height:clamp(240px,calc(100dvh - 595px),390px)}
+}
+@media (min-width:821px) and (max-width:1200px){.dash-cycle{display:flex}.dash-event{grid-template-columns:minmax(0,1.1fr) 90px minmax(0,1fr) minmax(0,1.15fr)}.dash-countdown{height:88px;width:88px}}
+@media(max-width:820px){.dash-cycle{display:flex;grid-column:1/-1;max-height:140px;border-left:0;border-top:1px solid #d4e5e555;padding:9px 0 0}}
 </style><style>
 .sleep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.sleep-grid label{margin-top:3px}.sleep-day{margin:5px 0 9px;font-size:12px;color:#3b6671;border-radius:9px;background:#eaf2f8;padding:7px 8px;line-height:1.4}.sleep-list{max-height:210px;overflow:auto;margin-top:10px}.sleep-row{display:flex;justify-content:space-between;gap:8px;padding:8px;border-bottom:1px solid #e5eceb;font-size:14px}.sleep-row button{padding:3px 8px}.sleep-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}@media(max-width:500px){.sleep-grid{grid-template-columns:1fr}}
 </style><style>
@@ -265,7 +280,7 @@ main{max-width:1900px;padding:10px clamp(14px,1.8vw,30px) 35px}
 .event-photo-help{font-size:12px;color:#58727c;line-height:1.45}
 @media(max-width:560px){.event-photo-controls{grid-template-columns:1fr}}
 
-/* 0.10.34 – besondere Zeiträume / Ausfälle */
+/* 0.10.35 – besondere Zeiträume / Ausfälle */
 .day.break-ill{border-top:5px solid #dc6667;background:linear-gradient(#fff6f6 0,#fff 88px)}
 .day.break-holiday{border-top:5px solid #edb548;background:linear-gradient(#fffaf0 0,#fff 88px)}
 .day.break-recovery{border-top:5px solid #49ad89;background:linear-gradient(#f1fbf5 0,#fff 88px)}
@@ -280,7 +295,7 @@ main{max-width:1900px;padding:10px clamp(14px,1.8vw,30px) 35px}
 #breakDialog label{display:block;margin:8px 0}
 #breakDialog textarea{min-height:65px}
 @media(max-width:540px){.break-form-grid{grid-template-columns:1fr}}
-</style></head><body><header class="hub-status"><small>Training Hub · Version 0.10.34</small><span id="storage">Lokal gespeichert</span></header><main><div class="hub-topline">
+</style></head><body><header class="hub-status"><small>Training Hub · Version 0.10.35</small><span id="storage">Lokal gespeichert</span></header><main><div class="hub-topline">
   <div class="hub-brand"><span class="hub-bike">🚴</span><strong>Training Hub</strong></div>
   <div class="week-navigation"><button id="prev" aria-label="Vorherige Woche">‹</button><strong id="range"></strong><button id="next" aria-label="Nächste Woche">›</button><button id="current">Heute</button></div>
   <div class="hub-top-actions">
@@ -296,7 +311,7 @@ main{max-width:1900px;padding:10px clamp(14px,1.8vw,30px) 35px}
 <div class="hub-more-panel" id="hubMorePanel" hidden>
   <button id="addActivity">＋ Aktivität hinzufügen</button>
   <div aria-label="Wochenansicht" class="view-switch" role="group"><button aria-pressed="true" class="view-btn" id="compactView">Kompakt</button><button aria-pressed="false" class="view-btn" id="expandedView">Ausführlich</button></div><div class="toolbar-menus">
-<details class="hub-menu" id="dataMenu"><summary>📁 Daten &amp; Import/Export <span aria-hidden="true">▾</span></summary><div class="hub-menu-content"><div class="hub-menu-title">Trainingsplanung &amp; Sicherung</div><button id="import">📥 Trainingsplan JSON importieren</button><button id="zwoImportBtn">📥 ZWO-Training importieren</button><button id="seasonPlanImportBtn" type="button">📥 Saisonphasen JSON importieren</button><input id="seasonPlanFile" type="file" accept=".json,application/json" hidden><button id="export">📤 Gesamte Daten als JSON sichern</button><div class="hub-menu-title">Schlafdaten</div><button id="sleepImportBtn">📥 Schlaf-CSV/JSON importieren</button><button id="sleepExportBtn">📤 Schlafdaten exportieren</button><button id="sleepTemplateBtn">⬇️ Schlaf-CSV-Vorlage</button><p class="hub-menu-hint">ChatGPT-Exporte für Trainingseinheiten findest du weiterhin in der FIT-Auswertung und im Trainingstagebuch.</p></div></details>
+<details class="hub-menu" id="dataMenu"><summary>📁 Daten &amp; Import/Export <span aria-hidden="true">▾</span></summary><div class="hub-menu-content"><div class="hub-menu-title">Trainingsplanung &amp; Sicherung</div><button id="import">📥 Trainingsplan JSON importieren</button><button id="zwoImportBtn">📥 ZWO-Training importieren</button><button id="seasonPlanImportBtn" type="button">📥 Saisonphasen JSON importieren</button><input id="seasonPlanFile" type="file" accept=".json,application/json" hidden><button id="export">📤 Gesamte Daten als JSON sichern</button><button id="weekChatExportBtn" type="button">📤 Angezeigte Woche für ChatGPT exportieren</button><div class="hub-menu-title">Schlafdaten</div><button id="sleepImportBtn">📥 Schlaf-CSV/JSON importieren</button><button id="sleepExportBtn">📤 Schlafdaten exportieren</button><button id="sleepTemplateBtn">⬇️ Schlaf-CSV-Vorlage</button><p class="hub-menu-hint">ChatGPT-Exporte für Trainingseinheiten findest du weiterhin in der FIT-Auswertung und im Trainingstagebuch.</p></div></details>
 <details class="hub-menu" id="toolsMenu"><summary>⚙️ Werkzeuge &amp; Einstellungen <span aria-hidden="true">▾</span></summary><div class="hub-menu-content"><button id="breakOpenBtn" type="button">🗓️ Zeitraum markieren (Krankheit / Urlaub)</button><button id="libraryOpenBtn">📚 Übungsbibliothek</button><button id="nutritionSettingsBtn">🥤 Ernährung</button><button id="hrSettingsBtn">❤️ HF-Profil</button></div></details>
 </div><span class="hub-more-note">Weitere Funktionen · Import/Export · Werkzeuge</span>
 </div>
@@ -1102,6 +1117,32 @@ function chatPackage(rows,kind){const sessionIds=new Set(rows.map(x=>x.sessionId
  interpretationNotes:['Geplante Schritte sind Soll-Werte; FIT-Daten sind Ist-Werte.','FIT-Zeitreihen sind reduziert und können Pausen und Intervallgrenzen nur angenähert darstellen.','Fehlende Messwerte sind null, nicht 0.','Nur vorhandene Ernährungs- und Kraftdaten sind enthalten.','RPE 1–10 ist die subjektive Anstrengung der gesamten Einheit; subjectiveLoadAU = tatsächliche Dauer in Minuten × RPE. Fehlende RPE ist null.'],
  markedPeriods:breakPeriods.filter(b=>rows.some(s=>s.date>=b.start&&s.date<=b.end)).map(b=>({...b})),sessions:rows,nutritionProducts:nutritionProducts.filter(p=>usedProducts.has(p.id)).map(p=>({...p}))}
 }
+// 0.10.35: Vollständiger Wochenbericht inkl. ausgefallener/geplanter Einheiten und Schlaf.
+function exportChatWeek(){
+ const start=dateStr(weekStart),end=dateStr(addDays(weekStart,6));
+ const weekSessions=sessions.filter(s=>s.date>=start&&s.date<=end).sort((a,b)=>a.date.localeCompare(b.date));
+ const rows=weekSessions.map(s=>chatSessionRecord(s));
+ const pkg=chatPackage(rows,'weekly-review');
+ const nights=Object.entries(sleepEntries).filter(([d])=>d>=start&&d<=end).sort((a,b)=>a[0].localeCompare(b[0])).map(([date,values])=>({date,...values}));
+ const avg=(xs)=>xs.length?Math.round(xs.reduce((a,b)=>a+b,0)/xs.length*10)/10:null;
+ const nums=(key)=>nights.map(n=>Number(n[key])).filter((n,i)=>nights[i][key]!==null&&nights[i][key]!==undefined&&Number.isFinite(n));
+ const completed=weekSessions.filter(s=>s.status==='done'),missed=weekSessions.filter(s=>s.status==='skipped'),planned=weekSessions.filter(s=>s.status!=='done'&&s.status!=='skipped');
+ const actualMinutes=completed.reduce((n,s)=>n+(Number(journalEntries[s.id]?.minutes??s.minutes)||0),0);
+ const plannedMinutes=weekSessions.reduce((n,s)=>n+(Number(s.minutes)||0),0);
+ const load=completed.reduce((n,s)=>{const r=Number(journalEntries[s.id]?.rpe??s.activityRpe);return n+(r>=1&&r<=10?(Number(journalEntries[s.id]?.minutes??s.minutes)||0)*r:0)},0);
+ const activeEvent=seasonEvents.filter(e=>e.status==='fixed'&&e.date>=end).sort((a,b)=>a.date.localeCompare(b.date))[0]||null;
+ const activePlan=activeEvent?seasonPlans[activeEvent.id]:null;
+ pkg.week={start,end,calendarWeekStartMonday:true};
+ pkg.weekSummary={totalSessions:weekSessions.length,completed:completed.length,skipped:missed.length,stillPlanned:planned.length,originallyScheduledMinutes:plannedMinutes,completedMinutes:actualMinutes,subjectiveLoadAU:Math.round(load),ratedCompletedSessions:completed.filter(s=>Number(journalEntries[s.id]?.rpe??s.activityRpe)>=1).length};
+ pkg.sleep={nights,numberOfNights:nights.length,averageDurationMinutes:avg(nums('durationMinutes')),averageScore:avg(nums('score')),averageFeeling:avg(nums('feeling')),averageRestingHr:avg(nums('restingHr')),averageHrv:avg(nums('hrv'))};
+ pkg.markedPeriods=breakPeriods.filter(b=>b.start<=end&&b.end>=start).map(b=>({...b}));
+ pkg.nextEvent=activeEvent?{title:activeEvent.title,date:activeEvent.date,personalGoal:activeEvent.goal||activeEvent.personalGoal||null}:null;
+ pkg.seasonPhases=activePlan?activePlan.phases.map(p=>({...p})):[];
+ pkg.interpretationNotes.push('Diese Wochenübersicht enthält auch ausgefallene und noch geplante Einheiten; sie dürfen nicht als absolvierte Belastung gezählt werden.','Krankheit/Urlaub/Regeneration sind im Feld markedPeriods auch dann enthalten, wenn keine Trainingseinheit an einem betroffenen Tag geplant war.','Schlafdaten sind manuelle Einträge. Fehlende Nächte sind nicht als 0 zu interpretieren.','Bitte bei Krankheit keine automatischen Nachholtrainings vorschlagen; zuerst Erholung und Wiedereinstieg besprechen.');
+ downloadBlob(JSON.stringify(pkg,null,2),`training-hub-wochenbericht-${start}-bis-${end}.json`,'application/json');
+ $('notice').textContent='Wochenbericht '+start+' bis '+end+' für ChatGPT exportiert. Datei im Trainingsplanungs-Chat hochladen.';
+}
+$('weekChatExportBtn').onclick=exportChatWeek;
 function exportChatSession(id){const s=sessions.find(x=>x.id===id);if(!s){alert('Trainingseinheit nicht gefunden.');return}const obj=chatPackage([chatSessionRecord(s)],'single-session');downloadBlob(JSON.stringify(obj,null,2),`training-hub-chat-${s.date}-${String(s.title).replace(/[^a-z0-9_-]+/gi,'-').slice(0,45)}.json`,'application/json')}
 $('journalChatExport').onclick=()=>{const rows=journalSessions().map(s=>chatSessionRecord(s));if(!rows.length){alert('Im ausgewählten Zeitraum gibt es noch keine abgeschlossenen Einheiten.');return}const period=$('journalPeriod').value;downloadBlob(JSON.stringify(chatPackage(rows,'training-period'),null,2),`training-hub-chat-verlauf-${period}-tage.json`,'application/json');$('notice').textContent=`${rows.length} Einheiten als ChatGPT-JSON exportiert. Datei anschließend selbst im Chat hochladen.`};
 function currentFitChatPackage(){
@@ -1354,7 +1395,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.hub-menu'))document
  render();
 })();
 
-// 0.10.34: local training breaks, independent of planned training JSON.
+// 0.10.35: local training breaks, independent of planned training JSON.
 const BREAK_KEY='training-hub-break-periods-v1';
 const BREAK_REASONS={ill:['🔴','Krankheit'],holiday:['🟡','Urlaub'],recovery:['🟢','Regeneration'],other:['🔵','Beruf / Familie / Sonstiges']};
 function cleanBreakPeriod(v){if(!v||typeof v!=='object'||!/^\d{4}-\d{2}-\d{2}$/.test(v.start||'')||!/^\d{4}-\d{2}-\d{2}$/.test(v.end||'')||v.end<v.start||!BREAK_REASONS[v.reason])return null;return {id:String(v.id||crypto.randomUUID()),start:v.start,end:v.end,reason:v.reason,note:String(v.note||'').slice(0,1000)}}
@@ -1370,7 +1411,7 @@ $('breakDelete').onclick=()=>{const id=$('breakId').value;if(!id||!confirm('Mark
 $('detailSkipReason').onclick=()=>{const s=sessions.find(x=>x.id===activeDetailId);if(!s)return;const previous=s.absenceReason||'ill';const options='Grund für den Ausfall:\n1 = Krankheit\n2 = Zeitmangel / Verpflichtungen\n3 = Regeneration\n4 = Urlaub / alternatives Training\n0 = Wieder als geplant markieren';const input=prompt(options,s.status==='skipped'?'0':'1');if(input===null)return;const reasons={'1':'ill','2':'other','3':'recovery','4':'holiday'};if(input==='0'){s.status='planned';delete s.absenceReason;delete s.absenceNote;delete s.breakMarkId}else if(reasons[input]){if(s.status==='done'&&!confirm('Diese bereits abgeschlossene Einheit wirklich als ausgefallen markieren?'))return;s.status='skipped';s.absenceReason=reasons[input];s.absenceNote=prompt('Kurze Begründung (optional)',s.absenceNote||'')||'';delete s.breakMarkId}else{alert('Bitte 0 bis 4 wählen.');return}save();render();openDetail(s.id,true)};
 const renderWithBreaks=render;render=function(){renderWithBreaks();paintBreaks()};paintBreaks();
 
-// 0.10.34: date-only rescheduling; original session ID is retained for FIT, journal and nutrition references.
+// 0.10.35: date-only rescheduling; original session ID is retained for FIT, journal and nutrition references.
 const moveDateValid=v=>/^\d{4}-\d{2}-\d{2}$/.test(v||'')&&dateStr(fromStr(v))===v;
 function moveDayLabel(v){try{return new Intl.DateTimeFormat('de-DE',{weekday:'long',day:'2-digit',month:'2-digit',year:'numeric'}).format(fromStr(v))}catch{return v}}
 function renderMoveHistory(s){
@@ -1430,7 +1471,7 @@ $('moveForm').addEventListener('submit',e=>{
  openDetail(s.id);
 });
 
-// 0.10.34 – visual editor works on the existing step schema; ZWO export reads the saved steps.
+// 0.10.35 – visual editor works on the existing step schema; ZWO export reads the saved steps.
 (function(){
  const panel=$('intervalEditorPanel'),rows=$('intervalEditorRows'),status=$('intervalEditorStatus');
  let draft=[];
